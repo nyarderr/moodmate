@@ -1,0 +1,30 @@
+### Python Files
+venv/
+.venv/
+env/
+.env/
+__pycache__/
+*.pyc
+
+
+### Temporary files
+*.tmp
+*.log
+
+
+### macOS files
+.DS_Store
+
+
+### Model / cache folders
+model_cache/
+hf_home/
+models/
+*.bin
+*.safetensors
+
+
+###
+.ipynb_checkpoints/
+*.tmp
+*.log
