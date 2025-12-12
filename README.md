@@ -87,14 +87,86 @@ Will include:
 
 ## 🏋️ Model Training
 
-> To be completed after training scripts are developed.
+This project fine-tunes **Qwen** (a decoder-only large language model) using **LoRA** (Low-Rank Adaptation) to classify text into the 7 macro-emotions defined during dataset preprocessing.
 
-This section will cover:
-- Preparing training data  
-- Running LoRA fine-tuning  
-- Saving and loading models  
+### 🔹 Model Used
+- **Base Model:** Qwen 1.5 (1.8B or 4B)
+- **Fine-Tuning Method:** LoRA
+- **Task Type:** Instruction-style *causal language modeling*
+- **Objective:** Train Qwen to generate the correct emotion label from a prompt.
+
+**Prompt (input):**
+Instruction: Identify the emotion of the following text. <br>
+Text: I’m really stressed about tomorrow. <br>
+Emotion: <br>
+
+**Target (expected output):**
+anxiety
+
+The model learns to predict the correct emotion after the `"Emotion:"` token.
 
 ---
+
+### 🧩 Why LoRA?
+
+LoRA allows efficient fine-tuning by updating only ~1–2% of the model parameters.
+
+Benefits:
+- Fits on free Google Colab GPU (T4)
+- Produces a small adapter file (150–200 MB)
+- Leaves original Qwen weights unchanged
+- Faster training and lower memory use
+
+---
+
+### 📊 Training Data Format
+
+The processed dataset contains:
+
+| text | labels |
+|------|---------|
+| "I'm overwhelmed with school." | anxiety |
+| "This is amazing!" | joy |
+
+During tokenization, **prompt + label are combined**:
+Instruction: Identify the emotion of the following text. <br>
+Text: <br>
+Emotion: <br>
+
+To prevent the model from learning the prompt itself, **all prompt tokens are masked with `-100`**, so the model only learns from the label tokens.
+
+---
+
+## ⚙️ Training Pipeline Overview
+
+The fine-tuning workflow includes:
+
+1. **Load processed dataset** (7 macro-emotion labels).
+2. **Construct instruction-style prompts** for each example.
+3. **Tokenize the combined prompt and label** into model input.
+4. **Mask prompt tokens** using `-100` so only label tokens influence training.
+5. **Apply LoRA adapters** to the base Qwen model.
+6. **Fine-tune using HuggingFace Trainer**, updating only LoRA layers.
+7. **Save the trained LoRA adapter** for use in the API.
+
+---
+
+### 🚀 Reproducible Training
+
+Training can be reproduced using the notebook:
+`training/train_qwen_lora.ipynb`
+
+The notebook:
+- Loads Qwen in 8-bit mode for memory efficiency  
+- Applies LoRA configuration  
+- Tokenizes dataset using the masking strategy  
+- Runs fine-tuning  
+- Saves LoRA weights to: qwen-emotion-lora/
+
+You may then upload the adapter to HuggingFace Hub or place it in: `models/qwen_emotion/`
+
+---
+
 
 ## 📈 Evaluation
 
