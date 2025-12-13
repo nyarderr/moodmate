@@ -5,8 +5,38 @@ The project addresses the challenge of extracting emotional intent from natural 
 
 This project presents the design, implementation, and evaluation of an NLP-based system using small language models for emotion-aware text processing.
 
+---
+
+## 🎯 Problem Definition and Motivation
+
+Understanding emotional cues in text is a fundamental problem in Natural Language Processing, with applications in mental wellness support, human–computer interaction, and affective computing. While large language models offer strong performance, they are often impractical due to computational cost and deployment constraints.
+
+This project investigates the following question:
+
+To what extent can small, open-source language models perform emotion classification and generate emotionally appropriate responses in a resource-constrained setting?
+
+MoodMate explores this question by combining supervised emotion classification with conditional text generation, demonstrating that SLMs can deliver meaningful emotional awareness without reliance on large proprietary models.
 
 ---
+
+## 🧩 System Overview
+
+MoodMate is composed of two primary NLP components exposed through a RESTful API:
+
+Emotion Classification
+User input text is classified into one of seven predefined macro-emotions.
+
+Support Message Generation
+Based on the detected emotion, the system generates a short, empathetic response tailored to the emotional category.
+
+The system follows a modular pipeline:
+
+User Text → Emotion Classifier (SLM) → Emotion Label → Response Generator (SLM) → Support Message 
+
+This separation allows independent evaluation and replacement of each NLP component.
+
+---
+
 ## 📌 Features
 
 - Emotion detection using **7 macro-emotions**  
