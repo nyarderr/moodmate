@@ -80,8 +80,12 @@ The original dataset contains **28 fine-grained emotion labels**, which are mapp
 | neutral | neutral, confusion, curiosity, realization |
 
 ### **Processed Dataset**
-The preprocessed dataset (7-emotion version) is located in: `/data/processed/goemotions_macro_7.csv` <br>
-This allows users to reproduce experiments **without rerunning preprocessing**.
+The processed dataset is provided at:
+
+data/processed/goemotions_macro_7.csv
+
+This enables full reproducibility without rerunning preprocessing steps.
+
 ---
 
 ## 🧠 Models
