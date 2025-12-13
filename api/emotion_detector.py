@@ -1,14 +1,11 @@
-
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
+LORA_PATH = "../models/qwen_lora_emotions"
 
 ## load tokenizer
-tokenizer = AutoTokenizer.from_pretrained(
-    "Qwen/Qwen1.5-0.5B",
-    trust_remote_code=True
-)
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen1.5-0.5B", trust_remote_code=True)
 
 ## load base model
 base_model = AutoModelForCausalLM.from_pretrained(
@@ -22,24 +19,31 @@ base_model = AutoModelForCausalLM.from_pretrained(
 ## load peft model
 model = PeftModel.from_pretrained(
     base_model,
-    "emotion_detector_peft_model",
+    LORA_PATH,
     torch_dtype=torch.float16,
     device_map="auto",
 )
 
+# Load LoRA adapter
 
 
+model = PeftModel.from_pretrained(base_model, LORA_PATH)
+model.eval()
 
 
-def EmotionDetector(text):
+def detect_emotion(text: str) -> str:
+    prompt = (
+        "Instrcution: Identify the emotion of the following text.\n"
+        f"Text: {text}\n"
+        "Emotion:"
+    )
 
-    final_text = {
-        f"Instrcution: Identify the emotion of the following text.\n"
-        f"Text:{text}\n"
-        f"Emotion:"
-    }
-    tokenized_text = model.tokenizer(final_text, return_tensors="pt", padding=True)
-    output = model.model.generate(**tokenized_text, max_new_tokens=10)
-    decoded_output = model.tokenizer.batch_decode(output, skip_special_tokens=True)[0]
-    emotion = decoded_output.split("Emotion:")[-1].strip()
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+
+    with torch.no_grad():
+        outputs = model.generate(**inputs, max_new_tokens=5, do_sample=False)
+
+    decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    emotion = decoded.split("Emotion:")[-1].strip().split()[0]
+
     return emotion

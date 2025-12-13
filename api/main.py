@@ -1,39 +1,43 @@
+# api/main.py
+
+from emotion_detector import detect_emotion
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Union
-from fastapi.responses import RedirectResponse
-from emotion_detector import EmotionDetector, model
-from response_generator import ResponseGenerator
-
+from response_generator import generate_support_message
 
 app = FastAPI(name="Moodmate API", version="1.0.0")
 
 
-@app.get("/", include_in_schema=False)
-async def root():
-    return RedirectResponse(url="/docs")
+# -------- Request Schemas --------
 
 
-@app.get("/health", tags=["Health Check"])
-async def health_check():
-    return {"status": "ok",
-            "model_loaded": model is not None}
-
-
-class MoodRequest(BaseModel):
+class EmotionRequest(BaseModel):
     text: str
 
 
-@app.post("/predict", tags=["Mood Prediction"])
-async def predict_mood(request: MoodRequest):
-    text = request.text
-    emotion = EmotionDetector(text)
-    response = ResponseGenerator(emotion)
-    return {"emotion": emotion, "response": response} 
+class SupportRequest(BaseModel):
+    text: str
+    emotion: str
 
 
-@app.post("/generate_response", tags=["Response Generation"])
-async def generate_response(request: MoodRequest):
-    text = request.text
-    response = ResponseGenerator(text)
-    return {"response": response}
+# -------- Endpoints --------
+
+
+@app.post("/analyze_emotion")
+def analyze_emotion(request: EmotionRequest):
+    emotion = detect_emotion(request.text)
+    return {"emotion": emotion}
+
+
+@app.post("/generate_support")
+def generate_support(request: SupportRequest):
+    message = generate_support_message(request.text, request.emotion)
+    return {"support_message": message}
+
+
+@app.get("/")
+def health_check():
+    return {"status": "MoodMate API is running"}
+
+
+# -------- End of File --------
