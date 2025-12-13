@@ -1,8 +1,42 @@
 # MoodMate — Emotion-Aware NLP Microservice For Mental Wellness Support
-MoodMate is an NLP-based microservice designed to detect user emotions in short text and generate supportive, empathetic responses using small language models.  
-This project demonstrates how emotion-aware systems can be built efficiently using open-source models such as Qwen and Phi.
+MoodMate is an NLP-based microservice designed to detect user emotional states in short user-generated text and generate brief, empathetic support messages. The system demonstrates how Small Language Models (SLMs) can be effectively used to build emotion-aware applications under realistic computational and time constraints.
+
+The project addresses the challenge of extracting emotional intent from natural language and responding in a contextually appropriate manner, using open-source instruction-tuned language models. MoodMate is implemented as a lightweight, fully local microservice, emphasizing efficiency, reproducibility, and privacy.
+
+This project presents the design, implementation, and evaluation of an NLP-based system using small language models for emotion-aware text processing.
 
 ---
+
+## 🎯 Problem Definition and Motivation
+
+Understanding emotional cues in text is a fundamental problem in Natural Language Processing, with applications in mental wellness support, human–computer interaction, and affective computing. While large language models offer strong performance, they are often impractical due to computational cost and deployment constraints.
+
+This project investigates the following question:
+
+To what extent can small, open-source language models perform emotion classification and generate emotionally appropriate responses in a resource-constrained setting?
+
+MoodMate explores this question by combining supervised emotion classification with conditional text generation, demonstrating that SLMs can deliver meaningful emotional awareness without reliance on large proprietary models.
+
+---
+
+## 🧩 System Overview
+
+MoodMate is composed of two primary NLP components exposed through a RESTful API:
+
+Emotion Classification
+User input text is classified into one of seven predefined macro-emotions.
+
+Support Message Generation
+Based on the detected emotion, the system generates a short, empathetic response tailored to the emotional category.
+
+The system follows a modular pipeline:
+
+User Text → Emotion Classifier (SLM) → Emotion Label → Response Generator (SLM) → Support Message 
+
+This separation allows independent evaluation and replacement of each NLP component.
+
+---
+
 ## 📌 Features
 
 - Emotion detection using **7 macro-emotions**  
@@ -46,8 +80,12 @@ The original dataset contains **28 fine-grained emotion labels**, which are mapp
 | neutral | neutral, confusion, curiosity, realization |
 
 ### **Processed Dataset**
-The preprocessed dataset (7-emotion version) is located in: `/data/processed/goemotions_macro_7.csv` <br>
-This allows users to reproduce experiments **without rerunning preprocessing**.
+The processed dataset is provided at:
+
+data/processed/goemotions_macro_7.csv
+
+This enables full reproducibility without rerunning preprocessing steps.
+
 ---
 
 ## 🧠 Models
