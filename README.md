@@ -102,25 +102,82 @@ This enables full reproducibility without rerunning preprocessing steps.
 
 ## ⚙️ Installation
 
-> To be completed after API and environment setup.
+## ⚙️ Installation
 
-Instructions will include:
-- Creating virtual environment  
-- Installing requirements  
-- Setting Hugging Face access tokens  
-- Running the API  
+### Requirements
+- Python 3.9+
+- Virtual environment recommended
+- CPU-only execution supported (GPU optional)
+
+### Setup
+
+```bash
+git clone https://github.com/<your-username>/moodmate.git
+cd moodmate
+
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 ---
 
 ## 🚀 Usage
 
-> To be completed after API development.
+### Start the API
 
-Will include:
-- How to run the API  
-- Sample requests to `/analyze_emotion`  
-- Sample requests to `/generate_support`  
+From the project root:
 
+```bash
+uvicorn api.main:app
+```
+Once running, open:
+	•	http://127.0.0.1:8000/docs
+
+- Analyze Emotion
+
+Endpoint: /analyze_emotion
+
+Request:
+```json
+{
+  "text": "I feel overwhelmed with everything lately."
+}
+```
+Response:
+```json
+{
+  "emotion": "anxiety"
+}
+```
+- Generate Support Message
+
+Endpoint: /generate_support
+
+Request:
+```json
+{
+  "text": "I feel overwhelmed with everything lately.",
+  "emotion": "anxiety"
+}
+```
+```json
+Response:
+{
+  "support_message": "It’s understandable to feel overwhelmed. Try taking things one step at a time and be kind to yourself."
+}
+```
+---
+
+## 🧠 Model Artifacts
+
+Due to size constraints, trained model weights are not included in this repository.
+
+- The emotion classifier was fine-tuned in Google Colab using LoRA.
+- Only LoRA adapter weights are required for inference.
+- Model loading instructions are provided in the API code.
+
+This design follows standard machine learning best practices and ensures reproducibility without committing large binary files.
 ---
 
 ## 🏋️ Model Training
