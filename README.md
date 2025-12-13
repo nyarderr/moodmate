@@ -91,7 +91,7 @@ This enables full reproducibility without rerunning preprocessing steps.
 ## 🧠 Models
 
 ### **Emotion Classifier**
-- **Qwen 3–4B** fine-tuned using LoRA  
+- **Qwen 1.5–0.5B** fine-tuned using LoRA  
 - Predicts one of the 7 macro-emotions
 
 ### **Support Message Generator**
@@ -128,7 +128,7 @@ Will include:
 This project fine-tunes **Qwen** (a decoder-only large language model) using **LoRA** (Low-Rank Adaptation) to classify text into the 7 macro-emotions defined during dataset preprocessing.
 
 ### 🔹 Model Used
-- **Base Model:** Qwen 1.5 (1.8B or 4B)
+- **Base Model:** Qwen 1.5 (0.5B)
 - **Fine-Tuning Method:** LoRA
 - **Task Type:** Instruction-style *causal language modeling*
 - **Objective:** Train Qwen to generate the correct emotion label from a prompt.
@@ -195,7 +195,7 @@ Training can be reproduced using the notebook:
 `training/train_qwen_lora.ipynb`
 
 The notebook:
-- Loads Qwen in 8-bit mode for memory efficiency  
+- Loads Qwen in 4-bit mode for memory efficiency  
 - Applies LoRA configuration  
 - Tokenizes dataset using the masking strategy  
 - Runs fine-tuning  
@@ -205,22 +205,31 @@ You may then upload the adapter to HuggingFace Hub or place it in: `models/qwen_
 
 ---
 
+## 📈 Evaluation and Results
 
-## 📈 Evaluation
+The emotion classification model was evaluated on a held-out test set of 500 samples from the processed GoEmotions dataset.
 
-> To be completed after evaluation scripts.
+### Quantitative Performance
 
-Metrics planned:
-- Precision, Recall, F1 for classification  
-- Human evaluation for generation  
-- Latency and performance metrics  
+- **Overall Accuracy:** 0.68  
+- **Macro F1-score:** 0.51  
+- **Weighted F1-score:** 0.67  
 
----
+| Emotion   | Precision | Recall | F1-score |
+|-----------|-----------|--------|----------|
+| anger     | 0.47 | 0.57 | 0.52 |
+| anxiety   | 0.33 | 0.17 | 0.22 |
+| joy       | 0.60 | 0.66 | 0.63 |
+| love      | 0.78 | 0.66 | 0.71 |
+| neutral   | 0.75 | 0.82 | 0.78 |
+| sadness   | 0.79 | 0.27 | 0.40 |
+| surprise  | 0.33 | 0.30 | 0.32 |
 
-## 📄 Results
+### Observations
 
-> To be filled after model training and evaluation.
-
+- The model performs strongest on **neutral**, **love**, and **joy**, which are well-represented in the dataset.
+- Lower performance on **anxiety** and **surprise** is expected due to limited sample size and semantic overlap with other emotions.
+- Overall results demonstrate that LoRA fine-tuning of a small language model can achieve reasonable performance for multi-class emotion detection in resource-constrained settings.
 ---
 
 ## 📚 Acknowledgements
