@@ -81,7 +81,7 @@ The original dataset contains **28 fine-grained emotion labels**, which are mapp
 ### **Processed Dataset**
 The processed dataset is provided at:
 
-data/processed/goemotions_macro_7.csv
+data/processed/goemotions_final.csv
 
 This enables full reproducibility without rerunning preprocessing steps.
 
@@ -97,6 +97,12 @@ This enables full reproducibility without rerunning preprocessing steps.
 - **Phi-3.5 Mini Instruct**  
 - Generates short, empathetic responses conditioned on emotion
 
+Trained model weights are not included in this repository due to size constraints.
+
+To run the API locally:
+1. Train the model using the provided training scripts, or
+2. Download the LoRA adapter and place it in: models/qwen_emotion_lora/
+
 ---
 
 ## ⚙️ Installation
@@ -106,7 +112,7 @@ This enables full reproducibility without rerunning preprocessing steps.
 ### Requirements
 - Python 3.9+
 - Virtual environment recommended
-- CPU-only execution supported (GPU optional)
+- CPU/GPU execution supported
 
 ### Setup
 
