@@ -57,8 +57,7 @@ moodmate/ <br>
 │   ├── raw/            <br>
 │   └── processed/      <br>
 ├── models/            <br>
-├── docs/              `Holds all documentation material` <br>
-├── notebooks/         `Notebooks for experimentation and exploration` <br>
+├── docs/              `Holds all documentation material` <br>    
 ├── README.md          <br>
 └── requirements.txt   ## Defines the environment needed to run the project. <br>
 
