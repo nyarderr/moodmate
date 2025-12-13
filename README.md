@@ -4,6 +4,8 @@ MoodMate is an NLP-based microservice designed to detect user emotional states i
 The project addresses the challenge of extracting emotional intent from natural language and responding in a contextually appropriate manner, using open-source instruction-tuned language models. MoodMate is implemented as a lightweight, fully local microservice, emphasizing efficiency, reproducibility, and privacy.
 
 This project presents the design, implementation, and evaluation of an NLP-based system using small language models for emotion-aware text processing.
+
+
 ---
 ## 📌 Features
 
