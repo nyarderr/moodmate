@@ -1,12 +1,17 @@
 # api/main.py
-from .emotion_detector import detect_emotion
 from fastapi import FastAPI
-from pydantic import BaseModel
-from .response_generator import generate_support_message
 from fastapi.responses import RedirectResponse
+from pydantic import BaseModel
 
-app = FastAPI(name="Moodmate API", version="1.0.0")
+from .emotion_detector import detect_emotion
+from .response_generator import generate_support_message
 
+app = FastAPI(
+    name="Moodmate API",
+    version="1.0.0",
+    title="Moodmate API",
+    description="Emotion-aware NLP microservice for mental wellness support.",
+)
 
 # -------- Request Schemas --------
 
@@ -45,14 +50,11 @@ def health_check():
     return {"status": "MoodMate API is running"}
 
 
-
 @app.post("/analyze_and_support)")
 def analyze_and_support(request: EmotionRequest):
     emotion = detect_emotion(request.text)
     message = generate_support_message(request.text, emotion)
-    return {"emotion": emotion, "support_message": message}   
-
-
+    return {"emotion": emotion, "support_message": message}
 
 
 # -------- End of File --------
