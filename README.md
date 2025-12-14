@@ -180,7 +180,10 @@ Due to size constraints, trained model weights are not included in this reposito
 - Only LoRA adapter weights are required for inference.
 - Model loading instructions are provided in the API code.
 
-This design follows standard machine learning best practices and ensures reproducibility without committing large binary files.
+This design follows standard machine learning best practices and ensures reproducibility without committing large binary files. <br>
+
+The API supports concurrent requests at the server level, but inference is serialized per worker due to the compute-bound nature of large language models. In production, this would be scaled horizontally using multiple workers or replicas.
+
 ---
 
 ## 🏋️ Model Training
