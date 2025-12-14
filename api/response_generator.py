@@ -32,5 +32,10 @@ def generate_support_message(text: str, emotion: str) -> str:
             **inputs, max_new_tokens=80, do_sample=True, temperature=0.7
         )
 
-    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    if "Assistant:" in decoded:
+        response = decoded.split("Assistant:")[-1].strip()
+    else:
+        response = decoded.strip()
+
     return response

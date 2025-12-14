@@ -1,9 +1,9 @@
 # api/main.py
-
-from emotion_detector import detect_emotion
+from .emotion_detector import detect_emotion
 from fastapi import FastAPI
 from pydantic import BaseModel
-from response_generator import generate_support_message
+from .response_generator import generate_support_message
+from fastapi.responses import RedirectResponse
 
 app = FastAPI(name="Moodmate API", version="1.0.0")
 
@@ -21,6 +21,11 @@ class SupportRequest(BaseModel):
 
 
 # -------- Endpoints --------
+
+
+@app.get("/")
+def root():
+    return RedirectResponse(url="/docs")
 
 
 @app.post("/analyze_emotion")
