@@ -45,4 +45,14 @@ def health_check():
     return {"status": "MoodMate API is running"}
 
 
+
+@app.post("/analyze_and_support)")
+def analyze_and_support(request: EmotionRequest):
+    emotion = detect_emotion(request.text)
+    message = generate_support_message(request.text, emotion)
+    return {"emotion": emotion, "support_message": message}   
+
+
+
+
 # -------- End of File --------
