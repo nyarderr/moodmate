@@ -33,6 +33,7 @@ def generate_support_message(text: str, emotion: str) -> str:
         )
 
     decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
     if "Assistant:" in decoded:
         response = decoded.split("Assistant:")[-1].split("User message:")[0].strip()
     else:
