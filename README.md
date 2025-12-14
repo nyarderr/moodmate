@@ -107,8 +107,6 @@ To run the API locally:
 
 ## ⚙️ Installation
 
-## ⚙️ Installation
-
 ### Requirements
 - Python 3.9+
 - Virtual environment recommended
