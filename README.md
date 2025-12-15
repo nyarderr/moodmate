@@ -115,7 +115,7 @@ To run the API locally:
 ### Setup
 
 ```bash
-git clone https://github.com/<your-username>/moodmate.git
+git clone https://github.com/nyarderr/moodmate.git
 cd moodmate
 
 python -m venv venv
@@ -180,8 +180,6 @@ Due to size constraints, trained model weights are not included in this reposito
 - Only LoRA adapter weights are required for inference.
 - Model loading instructions are provided in the API code.
 
-This design follows standard machine learning best practices and ensures reproducibility without committing large binary files. <br>
-
 The API supports concurrent requests at the server level, but inference is serialized per worker due to the compute-bound nature of large language models. In production, this would be scaled horizontally using multiple workers or replicas.
 
 ---
@@ -214,7 +212,7 @@ LoRA allows efficient fine-tuning by updating only ~1–2% of the model paramete
 
 Benefits:
 - Fits on free Google Colab GPU (T4)
-- Produces a small adapter file (150–200 MB)
+- Produces a small adapter file
 - Leaves original Qwen weights unchanged
 - Faster training and lower memory use
 
@@ -262,7 +260,7 @@ The notebook:
 - Applies LoRA configuration  
 - Tokenizes dataset using the masking strategy  
 - Runs fine-tuning  
-- Saves LoRA weights to: qwen-emotion-lora/
+- Saves LoRA weights 
 
 You may then upload the adapter to HuggingFace Hub or place it in: `models/qwen_emotion/`
 
