@@ -272,19 +272,19 @@ The emotion classification model was evaluated on a held-out test set of 500 sam
 
 ### Quantitative Performance
 
-- **Overall Accuracy:** 0.68  
-- **Macro F1-score:** 0.51  
-- **Weighted F1-score:** 0.67  
+- **Overall Accuracy:** 0.70  
+- **Macro F1-score:** 0.59  
+- **Weighted F1-score:** 0.69  
 
 | Emotion   | Precision | Recall | F1-score |
 |-----------|-----------|--------|----------|
-| anger     | 0.47 | 0.57 | 0.52 |
-| anxiety   | 0.33 | 0.17 | 0.22 |
-| joy       | 0.60 | 0.66 | 0.63 |
-| love      | 0.78 | 0.66 | 0.71 |
-| neutral   | 0.75 | 0.82 | 0.78 |
-| sadness   | 0.79 | 0.27 | 0.40 |
-| surprise  | 0.33 | 0.30 | 0.32 |
+| anger     | 0.63 | 0.55 | 0.59 |
+| anxiety   | 0.60 | 0.35 | 0.44 |
+| joy       | 0.64 | 0.69 | 0.66 |
+| love      | 0.71 | 0.72 | 0.71 |
+| neutral   | 0.74 | 0.84 | 0.79 |
+| sadness   | 0.75 | 0.27 | 0.40 |
+| surprise  | 0.33 | 0.26 | 0.29 |
 
 ### Observations
 
